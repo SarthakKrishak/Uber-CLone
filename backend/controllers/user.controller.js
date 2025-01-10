@@ -1,4 +1,4 @@
-const { validationResult, ExpressValidator } = require("express-validator");
+const { validationResult} = require("express-validator");
 const userModel = require("../models/user.model");
 const userService = require("../services/user.services");
 const blacklistedModel = require("../models/blacklisted.model");
@@ -12,6 +12,11 @@ module.exports.registerUser = async (req, res) => {
     }
 
     let { fullname, email, password } = req.body;
+
+    const isUserExist = await userModel.findOne({ email });
+    if (isUserExist) {
+        return res.status(400).json({ message: "User already exist" });
+    }
 
     const hashPassword = await userModel.hashPassword(password);
 
@@ -62,6 +67,6 @@ module.exports.logoutUser = async (req, res) => {
     const token = req.cookie.token || req.headers.authorization.split(" ")[1];
     await blacklistedModel.create({ token })
     res.status(201).json({ message: "Logged Out" });
-    
+
 }
 

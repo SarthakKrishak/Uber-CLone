@@ -1,11 +1,9 @@
 const userModel = require("../models/user.model");
-const bcrypt = require("bcrypt");
-const jwt = require("jwt");
+const jwt = require("jsonwebtoken");
 const blacklistedModel = require("../models/blacklisted.model");
 
 module.exports.authUser = async (req, res, next) => {
     const token = req.cookie.token || req.headers.authorization?.split(" ")[1];
-
     if (!token) {
         res.status(401).json({ message: "Unauthorized" });
     }
