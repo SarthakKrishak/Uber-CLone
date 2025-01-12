@@ -1,6 +1,6 @@
 const dotenv = require("dotenv")
 dotenv.config();
-const cors = require("cors")
+const cors = require("cors");
 const express = require("express")
 const app = express();
 //Calling the db call and then executing it.
@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 
 const userRoute = require('./routes/user.routes.js')
 const captainRoute = require('./routes/captain.routes.js');
+
 
 app.use(cors());
 app.use(express.json());

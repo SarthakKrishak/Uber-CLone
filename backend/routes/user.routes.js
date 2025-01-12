@@ -7,7 +7,7 @@ const { authUser } = require('../middleware/auth.middleware');
 
 
 
-router.post("/regiter", [
+router.post("/register", [
     body("email").isEmail().withMessage("Invalid Email"),
     body("fullname.firstname").isLength({ min: 3 }).withMessage("First name should have more than 3 characters"),
     body("password").isLength({ min: 6 }).withMessage("Last name should have 6 length")

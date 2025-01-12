@@ -80,10 +80,9 @@ captainSchema.statics.hashPassword = async function (password) {
     return await bcrypt.hash(password, 10);
 };
 
-// Instance Method: Compare Password
 captainSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
-};
+}
 
 const captainModel = mongoose.model('captain', captainSchema);
 

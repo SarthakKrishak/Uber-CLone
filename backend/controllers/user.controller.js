@@ -27,7 +27,7 @@ module.exports.registerUser = async (req, res) => {
         password: hashPassword
     });
 
-    const token = await userModel.generateAuthToken();
+    const token = await user.generateAuthToken();
 
     res.status(201).json({ token, user });
 
@@ -35,7 +35,7 @@ module.exports.registerUser = async (req, res) => {
 }
 
 module.exports.loginUser = async (req, res) => {
-    const error = ExpressValidator(req);
+    const error = validationResult(req);
     if (!error.isEmpty()) {
         return res.status(400).json({ error: error.array() });
     }
@@ -47,7 +47,7 @@ module.exports.loginUser = async (req, res) => {
         return res.status(401).json({ message: "Invalid email or password" })
     }
 
-    const isMatch = await user.comaprePassword(password);
+    const isMatch = await user.comparePassword(password);
 
     if (!isMatch) {
         return res.status(401).json({ message: 'Invalid email or password' })
@@ -63,9 +63,11 @@ module.exports.getUserProfile = async (req, res) => {
 }
 
 module.exports.logoutUser = async (req, res) => {
-    res.clearCookie('token');
-    const token = req.cookie.token || req.headers.authorization.split(" ")[1];
+    const token = req.cookies.token || req.headers.authorization.split(" ")[1];
     await blacklistedModel.create({ token })
+
+    res.clearCookie('token');
+   
     res.status(201).json({ message: "Logged Out" });
 
 }
