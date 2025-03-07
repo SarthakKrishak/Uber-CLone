@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { CaptainDataContext } from '../context/CaptainContext';
+import axios from 'axios';
 
 const CaptainSignup = () => {
   
@@ -8,24 +10,54 @@ const CaptainSignup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userData, setUserData] = useState({});
+  const [vehicleColor, setVehicleColor] = useState('')
+  const [vehiclePlate, setVehiclePlate] = useState('')
+  const [vehicleCapacity, setVehicleCapacity] = useState('')
+  const [vehicleType, setVehicleType] = useState('')
 
-  const submitHandler = (e) => {
+  const { captain, setCaptain } = React.useContext(CaptainDataContext)
+  
+  const navigate = useNavigate();
+
+  const submitHandler =async (e) => {
     e.preventDefault();
-    setUserData({
+
+
+    const captainData = {
       fullname: {
-        firstName: firstName,
-        lastName: lastName,
+        firstname: firstName,
+        lastname: lastName,
       },
       email: email,
-      password: password
-    });
+      password: password,
+      vehicle: {
+        color: vehicleColor,
+        plate: vehiclePlate,
+        capacity: vehicleCapacity,
+        vehicleType: vehicleType
+        }
+    };
 
-    console.log(userData);
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captain/register`,captainData);
+      if (response.status == 201) {
+        const data = response.data;
+        setCaptain(data.captain);
+        localStorage.setItem('token', data.token);
+        navigate("/captain-home");
+      }
+    } catch (error) {
+      console.log(error); 
+    }
 
     setEmail("");
     setPassword("");
     setFirstName("");
     setLastName("");
+    setVehicleColor("");
+    setVehiclePlate("");
+    setVehicleCapacity("");
+    setVehicleType("");
   };
 
 
