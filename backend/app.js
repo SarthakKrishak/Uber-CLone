@@ -3,9 +3,11 @@ dotenv.config();
 const cors = require("cors");
 const express = require("express")
 const app = express();
+
 //Calling the db call and then executing it.
 const connectToDb =require("./db/db.js")
 connectToDb();
+
 const cookieParser = require('cookie-parser');
 
 const userRoute = require('./routes/user.routes.js')

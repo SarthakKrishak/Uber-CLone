@@ -1,11 +1,12 @@
-const { validationResult} = require("express-validator");
 const userModel = require("../models/user.model");
+const { validationResult} = require("express-validator");
 const userService = require("../services/user.services");
 const blacklistedModel = require("../models/blacklisted.model");
 
 
 
 module.exports.registerUser = async (req, res) => {
+    //Validating the result
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ error: errors.array() });
@@ -30,8 +31,6 @@ module.exports.registerUser = async (req, res) => {
     const token = await user.generateAuthToken();
 
     res.status(201).json({ token, user });
-
-
 }
 
 module.exports.loginUser = async (req, res) => {
