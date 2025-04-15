@@ -2,7 +2,9 @@ const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const blacklistedModel = require("../models/blacklisted.model");
 const captainModel = require('../models/captain.model.js')
+
 module.exports.authUser = async (req, res, next) => {
+    //The token can be in cookie or headers
     const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
     if (!token) {
         res.status(401).json({ message: "Unauthorized" });

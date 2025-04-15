@@ -5,8 +5,6 @@ const { registerUser, loginUser, getUserProfile, logoutUser } = require("../cont
 const { authUser } = require('../middleware/auth.middleware');
 
 
-
-
 router.post("/register", [
     body("email").isEmail().withMessage("Invalid Email"),
     body("fullname.firstname").isLength({ min: 3 }).withMessage("First name should have more than 3 characters"),
@@ -22,6 +20,5 @@ router.post("/login", [
 router.get("/profile", authUser, getUserProfile);
 
 router.get("/logout",authUser,logoutUser)
-
 
 module.exports = router;

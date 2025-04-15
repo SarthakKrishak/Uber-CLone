@@ -1,3 +1,10 @@
+/**
+ * BlacklistToken Model
+ * ---------------------
+ * This schema is used to store blacklisted JWT tokens that should no longer be accepted.
+ * Tokens will automatically expire and be removed from the database after 24 hours.
+ */
+
 const mongoose = require('mongoose');
 
 const blacklistTokenSchema = new mongoose.Schema({

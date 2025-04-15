@@ -4,7 +4,6 @@ const userService = require("../services/user.services");
 const blacklistedModel = require("../models/blacklisted.model");
 
 
-
 module.exports.registerUser = async (req, res) => {
     //Validating the result
     const errors = validationResult(req);
@@ -32,7 +31,7 @@ module.exports.registerUser = async (req, res) => {
 
     res.status(201).json({ token, user });
 }
-
+// Login route logic
 module.exports.loginUser = async (req, res) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {
@@ -40,8 +39,9 @@ module.exports.loginUser = async (req, res) => {
     }
 
     const { email, password } = req.body;
-    const user = await userModel.findOne({ email }).select("+password")
 
+    const user = await userModel.findOne({ email }).select("+password")
+    
     if (!user) {
         return res.status(401).json({ message: "Invalid email or password" })
     }
