@@ -20,7 +20,7 @@ const App = () => {
           path="/home"
           element={
             <UserProctectWrapper>
-              <Home />
+              <Home/>
             </UserProctectWrapper>
           }
         />

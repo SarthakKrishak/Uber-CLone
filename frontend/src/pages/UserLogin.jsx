@@ -14,9 +14,9 @@ const UserLogin = () => {
     const submitHandler =async (e) => {
         e.preventDefault();
       const userData = {
-        email: email,
-        password: password
-      };
+          email: email,
+          password: password
+        };
 
       try {
         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData)
@@ -50,9 +50,7 @@ const UserLogin = () => {
           <input
             required
             value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            onChange={(e)=>setEmail(e.target.value)}
             className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
             type="email"
             placeholder="email@example.com"

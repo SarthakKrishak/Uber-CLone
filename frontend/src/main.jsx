@@ -9,10 +9,10 @@ import CaptainContext from "./context/CaptainContext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <CaptainContext>
-    <UserContext>
-      <BrowserRouter>
+      <UserContext>
+       <BrowserRouter>
         <App />
-      </BrowserRouter>
+        </BrowserRouter>
       </UserContext>
     </CaptainContext>
   </StrictMode>
